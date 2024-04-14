@@ -1,21 +1,25 @@
 package solid.cours;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
 
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
+import solid.cours.entities.Epargne;
+import solid.cours.entities.Payant;
+import solid.cours.entities.Simple;
 import solid.cours.enums.MobileMoney;
-import solid.cours.enums.TypeCompte;
+import solid.cours.services.ClientService;
+import solid.cours.services.CompteService;
 
 
 public class Main {
   
     public static void main(String[] args) {
-         List<Compte> comptes=new ArrayList<>();
-         List<Client> clients=new ArrayList<>();
+        
+        ClientService clientService=new ClientService();
+        CompteService compteService =new CompteService();
          Scanner scanner=new Scanner(System.in);
          int choix;
          Compte compte;
@@ -33,41 +37,45 @@ public class Main {
                    client=new Client(); 
                    System.out.println("Entrer le Nom et le Prenpm");
                    client.setNomComplet(scanner.nextLine());
-                   client.setNumero("CL00"+client.getId());
-                   clients.add(client);
+                   clientService.add(client);
                    System.out.println("Liste des Clients");
-                   clients.forEach(System.out::println);
+                   clientService.getAll().forEach(System.out::println);
                 }
                 case 2->{
                     
                      System.out.println("Entrer le Numero du client");
                      String num=scanner.nextLine();
-                     client=clients.stream().filter(c->c.getNumero().compareToIgnoreCase(num)==0).findFirst().orElse(null);
+                     client=clientService.getByNumero(num);
                     if (client==null) {
                         System.out.println("Ce Client n'existe pas"); 
                      } else {
-                        compte=new Compte();
-                        System.out.println("Entrer le Solde");
-                        compte.setSolde(scanner.nextDouble());
                         System.out.println("Entrer le Type du compte");
                         System.out.println("1-Epargne");
                         System.out.println("2-Payant");
                         System.out.println("3-Simple");
-                        compte.setType(TypeCompte.getValue(scanner.nextInt()));
-                        compte.setNumero("CPT00"+compte.getId());
-                        compte.setClient(client);
-                        comptes.add(compte);
+                        int typeCompte=scanner.nextInt();
+                       if(typeCompte==1){
+                          compte=new Epargne();
+                        }else if(typeCompte==2){
+                          compte=new Payant();
+                        }else{
+                             compte=new Simple();
+                        }
+                        System.out.println("Entrer le Solde");
+                        compte.setSolde(scanner.nextDouble());
+                      
+                        compteService.add(compte,client);
 
                     }
                   }
                     
                   case 3->{
-                    comptes.forEach(System.out::println);
+                    compteService.getAll().forEach(System.out::println);
                   }
                   case 4->{
                     System.out.println("Entrer le Numero du Compte");
                     String numero=scanner.nextLine();
-                     compte=comptes.stream().filter(c->c.getNumero().compareToIgnoreCase(numero)==0).findFirst().orElse(null);
+                     compte=compteService.getByNumero(numero);
                     if (compte==null) {
                         System.out.println("Ce Compte n'existe pas");
                     } else {
@@ -99,7 +107,7 @@ public class Main {
                              System.out.println("1-Wave");
                              System.out.println("2-OM");
                             type=scanner.nextInt();
-                            compte.transfert(mnt,tel, MobileMoney.getValue(type));
+                            compteService.transfert(compte,mnt,tel, MobileMoney.getValue(type));
                         }
                     }
                     

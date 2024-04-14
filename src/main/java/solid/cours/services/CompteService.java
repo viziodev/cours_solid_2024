@@ -2,19 +2,20 @@ package solid.cours.services;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
 import solid.cours.entities.CompteAvecRetrait;
 import solid.cours.repository.interfaces.ICompteRepository;
-import solid.cours.repository.list.CompteRepository;
 import solid.cours.services.tranfert.Tranfert;
 
+@RequiredArgsConstructor
 public class CompteService {
-     ICompteRepository compteRepository=new CompteRepository();
+     private final ICompteRepository compteRepository;
+    
     public Compte getByNumero(String numero){
         return compteRepository.findByNumero(numero);
     }
-
     public void add(Compte compte,Client client){
         compte.setNumero("CPT00"+compte.getId());
         compte.setClient(client);
@@ -28,6 +29,6 @@ public class CompteService {
     
     public void transfert(CompteAvecRetrait compte ,Double mnt,String numero,Tranfert mobileTranfert){
         if(mnt<=0 ||mnt>compte.getSolde() ) throw new IllegalArgumentException("Le Montant Invalide");       
-         mobileTranfert.process(compte,mnt,numero);
+        mobileTranfert.process(compte,mnt,numero);
     }
 }

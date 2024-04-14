@@ -11,6 +11,10 @@ import solid.cours.entities.Epargne;
 import solid.cours.entities.Payant;
 import solid.cours.entities.Simple;
 import solid.cours.enums.MobileMoney;
+import solid.cours.repository.json.ClientRepository;
+import solid.cours.repository.json.CompteRepository;
+import solid.cours.repository.interfaces.IClientRepository;
+import solid.cours.repository.interfaces.ICompteRepository;
 import solid.cours.services.ClientService;
 import solid.cours.services.CompteService;
 import solid.cours.services.tranfert.Tranfert;
@@ -22,9 +26,10 @@ import solid.cours.services.tranfert.TranfertWave;
 public class Main {
   
     public static void main(String[] args) {
-        
-        ClientService clientService=new ClientService();
-        CompteService compteService =new CompteService();
+         IClientRepository clientRepository=new ClientRepository();
+         ClientService clientService=new ClientService(clientRepository);
+         ICompteRepository compteRepository=new CompteRepository();
+         CompteService compteService =new CompteService(compteRepository);
          Scanner scanner=new Scanner(System.in);
          int choix;
          Compte compte;

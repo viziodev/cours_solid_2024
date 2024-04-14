@@ -4,11 +4,13 @@ import java.util.List;
 
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
-import solid.cours.enums.MobileMoney;
-import solid.cours.repository.CompteRepository;
+import solid.cours.repository.interfaces.IClientRepository;
+import solid.cours.repository.interfaces.ICompteRepository;
+import solid.cours.repository.list.CompteRepository;
+import solid.cours.services.tranfert.Tranfert;
 
 public class CompteService {
-  CompteRepository compteRepository=new CompteRepository();
+     ICompteRepository compteRepository=new CompteRepository();
     public Compte getByNumero(String numero){
         return compteRepository.findByNumero(numero);
     }
@@ -23,19 +25,8 @@ public class CompteService {
         return compteRepository.findByAll();
     }
     
-    public void transfert(Compte compte ,Double mnt,String numero,MobileMoney mobileMoney){
+    public void transfert(Compte compte ,Double mnt,String numero,Tranfert mobileTranfert){
         if(mnt<=0 ||mnt>compte.getSolde() ) throw new IllegalArgumentException("Le Montant Invalide");       
-       if (mobileMoney==MobileMoney.OM) {
-               Double mntFrais=MobileMoney.OM.getIndex()*mnt;
-               compte.retrait(mnt+mntFrais);
-               System.out.println("Transaction effectee  par OM sur le "+numero+" et le solde restant "+compte.getSolde());
-        } else 
-          if (mobileMoney==MobileMoney.WAVE) {
-            Double mntFrais=MobileMoney.OM.getIndex()*mnt;
-                compte.retrait(mnt+mntFrais);
-               System.out.println("Transaction effectee  par OM sur le "+numero+" et le solde restant "+compte.getSolde());
-        } else {
-            throw new IllegalArgumentException("Le Type de Transaction n'existe pas");
-        }
-       }
+        mobileTranfert.process(compte,mnt,numero);
+    }
 }

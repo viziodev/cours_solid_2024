@@ -12,6 +12,10 @@ import solid.cours.entities.Simple;
 import solid.cours.enums.MobileMoney;
 import solid.cours.services.ClientService;
 import solid.cours.services.CompteService;
+import solid.cours.services.tranfert.Tranfert;
+import solid.cours.services.tranfert.TranfertKPay;
+import solid.cours.services.tranfert.TranfertOM;
+import solid.cours.services.tranfert.TranfertWave;
 
 
 public class Main {
@@ -106,8 +110,19 @@ public class Main {
                              System.out.println("Entrer Mobile Money ");
                              System.out.println("1-Wave");
                              System.out.println("2-OM");
+                             System.out.println("3-Kpay");
                             type=scanner.nextInt();
-                            compteService.transfert(compte,mnt,tel, MobileMoney.getValue(type));
+                            Tranfert mobileTranfert;
+                             if (type==1) {
+                                mobileTranfert=new TranfertWave();   
+                             }else{
+                                if(type==2){
+                                    mobileTranfert=new TranfertOM();    
+                                }else{
+                                        mobileTranfert=new TranfertKPay();       
+                                }
+                            }
+                            compteService.transfert(compte,mnt,tel, mobileTranfert);
                         }
                     }
                     

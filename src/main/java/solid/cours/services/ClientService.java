@@ -3,11 +3,12 @@ package solid.cours.services;
 import java.util.List;
 
 import solid.cours.entities.Client;
-import solid.cours.repository.ClientRepository;
+import solid.cours.repository.interfaces.IClientRepository;
+import solid.cours.repository.bd.ClientRepository;
 
 public class ClientService {
    
-    ClientRepository clientRepository =new ClientRepository();
+    IClientRepository clientRepository =new ClientRepository();
     public Client getByNumero(String numero){
         return clientRepository.findByNumero(numero);
     }

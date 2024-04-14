@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
+import solid.cours.enums.MobileMoney;
 import solid.cours.enums.TypeCompte;
 
 
@@ -34,12 +35,12 @@ public class Main {
                    client.setNomComplet(scanner.nextLine());
                    client.setNumero("CL00"+client.getId());
                    clients.add(client);
-                    System.out.println("Liste des Clients");
-                     clients.forEach(System.out::println);
+                   System.out.println("Liste des Clients");
+                   clients.forEach(System.out::println);
                 }
                 case 2->{
                     
-                     System.out.println("Entrer le Numero");
+                     System.out.println("Entrer le Numero du client");
                      String num=scanner.nextLine();
                      client=clients.stream().filter(c->c.getNumero().compareToIgnoreCase(num)==0).findFirst().orElse(null);
                     if (client==null) {
@@ -64,7 +65,7 @@ public class Main {
                     comptes.forEach(System.out::println);
                   }
                   case 4->{
-                    System.out.println("Entrer le Numero");
+                    System.out.println("Entrer le Numero du Compte");
                     String numero=scanner.nextLine();
                      compte=comptes.stream().filter(c->c.getNumero().compareToIgnoreCase(numero)==0).findFirst().orElse(null);
                     if (compte==null) {
@@ -84,12 +85,21 @@ public class Main {
                             compte.depot(mnt); 
                             System.out.println("Apres"); 
                             System.out.println(compte);   
-                        } else {
+                        } else if(type==2) {
                             System.out.println("Avant");
                             System.out.println(compte);
                             compte.retrait(mnt);
                             System.out.println("Apres"); 
                             System.out.println(compte); 
+                        }else{
+                             scanner.nextLine();
+                             System.out.println("Entrer le Numero du Telephone");
+                             String tel=scanner.nextLine();
+                             System.out.println("Entrer Mobile Money ");
+                             System.out.println("1-Wave");
+                             System.out.println("2-OM");
+                            type=scanner.nextInt();
+                            compte.transfert(mnt,tel, MobileMoney.getValue(type));
                         }
                     }
                     

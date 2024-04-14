@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public enum TypeCompte {
-    EPARGNE(1)
+     EPARGNE(1)
     ,PAYANT(2),
      SIMPLE(3);
     private final long index;

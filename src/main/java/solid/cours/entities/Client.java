@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Client {
-    private Long id;
     private static Long nbreCompte=0L;
+    private Long id;
     private String numero;
     private String nomComplet;
 

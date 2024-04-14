@@ -16,12 +16,5 @@ public class Epargne extends Compte {
        
        public Epargne() {
         type=TypeCompte.EPARGNE;
-      }
-
-    @Override
-       public void retrait(Double mnt){
-            throw new IllegalArgumentException("Pas de Retrait sur ce compte");
-        }
-
-        
+      }      
 }

@@ -27,15 +27,8 @@ public  class Compte {
         id=++nbreCompte;
 
     }
-
     public  void depot(Double mnt){
         throw new RuntimeException("Not Found");
     }
-
-    public  void retrait(Double mnt){
-        throw new RuntimeException("Not Found");
- 
-    }
-   
    
 }

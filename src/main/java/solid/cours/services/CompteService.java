@@ -4,7 +4,7 @@ import java.util.List;
 
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
-import solid.cours.repository.interfaces.IClientRepository;
+import solid.cours.entities.CompteAvecRetrait;
 import solid.cours.repository.interfaces.ICompteRepository;
 import solid.cours.repository.list.CompteRepository;
 import solid.cours.services.tranfert.Tranfert;
@@ -25,8 +25,8 @@ public class CompteService {
         return compteRepository.findByAll();
     }
     
-    public void transfert(Compte compte ,Double mnt,String numero,Tranfert mobileTranfert){
+    public void transfert(CompteAvecRetrait compte ,Double mnt,String numero,Tranfert mobileTranfert){
         if(mnt<=0 ||mnt>compte.getSolde() ) throw new IllegalArgumentException("Le Montant Invalide");       
-        mobileTranfert.process(compte,mnt,numero);
+         mobileTranfert.process(compte,mnt,numero);
     }
 }

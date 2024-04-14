@@ -2,7 +2,7 @@ package solid.cours.entities;
 
 import solid.cours.enums.TypeCompte;
 
-public class Payant extends Compte {
+public class Payant extends CompteAvecRetrait {
      //Payant
       private  final Double Frais=0.05; 
 

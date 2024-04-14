@@ -2,7 +2,7 @@ package solid.cours.entities;
 
 import solid.cours.enums.TypeCompte;
 
-public class Simple extends Compte {
+public class Simple extends CompteAvecRetrait {
     //Simple
     private final Double decouvert=50000D;
    

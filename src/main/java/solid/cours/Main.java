@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import solid.cours.entities.Client;
 import solid.cours.entities.Compte;
+import solid.cours.entities.CompteAvecRetrait;
 import solid.cours.entities.Epargne;
 import solid.cours.entities.Payant;
 import solid.cours.entities.Simple;
@@ -98,11 +99,17 @@ public class Main {
                             System.out.println("Apres"); 
                             System.out.println(compte);   
                         } else if(type==2) {
-                            System.out.println("Avant");
-                            System.out.println(compte);
-                            compte.retrait(mnt);
-                            System.out.println("Apres"); 
-                            System.out.println(compte); 
+                            if(compte instanceof CompteAvecRetrait ){
+                                System.out.println("Avant");
+                                System.out.println(compte);
+                                ((CompteAvecRetrait) compte).retrait(mnt);
+                                System.out.println("Apres"); 
+                                System.out.println(compte); 
+                             }else{
+                                System.out.println("retrait impossible");
+                             }
+                          
+                          
                         }else{
                              scanner.nextLine();
                              System.out.println("Entrer le Numero du Telephone");
@@ -113,6 +120,7 @@ public class Main {
                              System.out.println("3-Kpay");
                             type=scanner.nextInt();
                             Tranfert mobileTranfert;
+                            if(compte instanceof CompteAvecRetrait ){
                              if (type==1) {
                                 mobileTranfert=new TranfertWave();   
                              }else{
@@ -122,7 +130,10 @@ public class Main {
                                         mobileTranfert=new TranfertKPay();       
                                 }
                             }
-                            compteService.transfert(compte,mnt,tel, mobileTranfert);
+                            compteService.transfert((CompteAvecRetrait) compte,mnt,tel, mobileTranfert);
+                          }else{
+                              System.out.println("retrait impossible");
+                          }
                         }
                     }
                     

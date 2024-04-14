@@ -4,7 +4,7 @@ import java.util.List;
 
 import solid.cours.entities.Client;
 import solid.cours.repository.interfaces.IClientRepository;
-import solid.cours.repository.bd.ClientRepository;
+import solid.cours.repository.list.ClientRepository;
 
 public class ClientService {
    

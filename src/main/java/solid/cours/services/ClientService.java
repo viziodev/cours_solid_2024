@@ -10,6 +10,8 @@ public class ClientService {
    
     IClientRepository clientRepository =new ClientRepository();
     public Client getByNumero(String numero){
+        
+
         return clientRepository.findByNumero(numero);
     }
 

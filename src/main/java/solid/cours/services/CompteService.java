@@ -22,6 +22,7 @@ public class CompteService {
      }
 
     public List<Compte> getAll(){
+      
         return compteRepository.findByAll();
     }
     

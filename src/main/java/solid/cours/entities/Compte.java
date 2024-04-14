@@ -3,12 +3,11 @@ package solid.cours.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import solid.cours.enums.MobileMoney;
 import solid.cours.enums.TypeCompte;
 
 @Getter
 @Setter
-public  class Compte {
+public  abstract class Compte implements ICompteDepot {
     private static Long nbreCompte=0L;
     protected Long id;
     protected String numero;
@@ -27,8 +26,7 @@ public  class Compte {
         id=++nbreCompte;
 
     }
-    public  void depot(Double mnt){
-        throw new RuntimeException("Not Found");
-    }
+   
+    
    
 }

@@ -8,4 +8,5 @@ public interface ICompteRepository {
     Compte findByNumero(String numero) ;
     void save(Compte client);
     List<Compte> findByAll();
+  
 }

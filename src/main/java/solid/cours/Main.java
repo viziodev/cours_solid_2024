@@ -75,6 +75,7 @@ public class Main {
                   }
                     
                   case 3->{
+                  
                     compteService.getAll().forEach(System.out::println);
                   }
                   case 4->{

@@ -1,8 +1,5 @@
 package solid.cours.entities;
 
-public class CompteAvecRetrait extends Compte {
-    public  void retrait(Double mnt){
-        throw new RuntimeException("Not Found");
- 
-    }
+public abstract class CompteAvecRetrait extends Compte  implements ICompteRetrait{
+   
 }
